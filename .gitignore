@@ -1,0 +1,26 @@
+# Claude Code local settings
+.claude/
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.ipynb_checkpoints/
+
+# Raw data (proprietary, too large for version control)
+data/raw/*
+!data/raw/.gitkeep
+
+# Large processed files derived from raw data (regenerate by running data_preprocessing.py)
+data/processed/daily_prices_with_forward_prices.csv
+data/processed/fundamentals_snapshot.csv
+
+# One sample file exceeds GitHub's 100 MB hard limit
+data/processed/sample/daily_prices_with_forward_prices_sample.csv
+
+# Full results tables (too large; test-phase summary is in data/evaluation/runs_protocol.csv)
+results/tables/*
+!results/tables/.gitkeep
+
+# Temporary paper generation file (base64 image blobs; regenerate with paper_figs.py)
+_imgs.py
