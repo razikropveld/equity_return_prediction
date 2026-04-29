@@ -64,7 +64,7 @@ A Quantitative Walk-Forward Framework</h1>
     studies&mdash;notably Gu, Kelly, and Xiu (2020) and Freyberger, Neuhierl, and Weber (2020)&mdash;apply
     non-linear methods to large characteristic sets and report improvements in rank information coefficients.
     However, these studies share important limitations: results are typically framed as factor risk-premia
-    rather than implementable return metrics; safeguards against survivorship and look-ahead bias are
+    rather than implementable return metrics; safeguards against survivorship bias are
     inconsistently applied; evaluation periods are short and do not span the full range of market regimes;
     and the gap between reported performance and a practically executable strategy is rarely closed.
   </p>
@@ -144,8 +144,8 @@ A Quantitative Walk-Forward Framework</h1>
   <li><strong>Survivorship and look-ahead bias.</strong> Studies using non-point-in-time databases
     systematically overstate predictive power, especially in periods covering market dislocations.</li>
   <li><strong>Time-series evaluation methodology.</strong> Standard cross-validation shuffles observations
-    without regard to time ordering. Even purpose-built rolling-window schemes often couple model
-    selection to the period immediately preceding the test set, introducing indirect temporal leakage.</li>
+    without regard to time ordering, violating the temporal structure of financial data. The specific
+    implications for model selection in walk-forward frameworks are addressed in Section 4.3.</li>
   <li><strong>Narrow evaluation windows.</strong> Many ML-based studies cover 10&ndash;20 years of data
     and do not span the full range of market regimes, including severe liquidity crises and structural
     shifts in market composition.</li>
@@ -258,11 +258,12 @@ A Quantitative Walk-Forward Framework</h1>
         <td colspan="2" style="text-align:center">5,728 U.S. equities incl. delisted firms</td></tr>
     <tr><td>Annualized return</td><td><strong>14.2%</strong></td><td>6.9%</td></tr>
     <tr><td>Mean 60-day period return</td><td><strong>3.5%</strong></td><td>1.9%</td></tr>
+    <tr><td>Std. dev. of period return</td><td>10.1%</td><td>7.8%</td></tr>
     <tr><td>Prob. outperform benchmark (single period)</td><td><strong>61.0%</strong></td><td>&mdash;</td></tr>
     <tr><td>Prob. outperform benchmark (rolling 12 periods, ~2 yrs)</td><td><strong>77.5%</strong></td><td>&mdash;</td></tr>
     <tr><td>Mean rank information coefficient (IC)</td><td><strong>0.024</strong></td><td>&mdash;</td></tr>
-    <tr><td>Worst single-period return</td><td>&minus;26.3%</td><td>&mdash;</td></tr>
-    <tr><td>Best single-period return</td><td>+50.1%</td><td>&mdash;</td></tr>
+    <tr><td>Worst single-period return</td><td>&minus;26.3%</td><td>&minus;22.8%</td></tr>
+    <tr><td>Best single-period return</td><td>+50.1%</td><td>+26.2%</td></tr>
   </tbody>
 </table>
 <p class="note">Table 1. Out-of-sample performance summary (test phase only). Returns are gross of
