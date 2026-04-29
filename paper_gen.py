@@ -73,14 +73,17 @@ A Quantitative Walk-Forward Framework</h1>
     Using a point-in-time fundamental database covering over 5,700 U.S. equities, we report
     out-of-sample results on a strict holdout test period from 2012 to 2023&mdash;spanning the post-crisis
     bull market, the COVID-19 shock, and the 2022 rate cycle. An XGBoost gradient-boosted tree model is
-    trained with a custom three-block time-series cross-validation (TSCV) design. The central
-    methodological innovation is the placement of the validation block <em>prior</em> to the training
-    window, which eliminates a subtle but consequential form of temporal leakage in tree-count selection.
+    trained with a custom three-block time-series cross-validation (TSCV) design. To better address the
+    well-known challenge of changing market regimes, the validation block is placed <em>prior</em> to
+    the training block, hence significantly shortening the gap between the training and test periods.
+    This design innovation resulted in a substantial improvement in out-of-sample IC values.
     Applied to a long-only top-30 strategy, the framework produces annualized returns of approximately
     14% versus 7% for the equal-weighted universe benchmark over the test period, with the strategy
     outperforming the benchmark in 61% of individual monthly periods and in over 77% of rolling
-    12-period windows. The return gradient across prediction deciles is monotone, and excess returns
-    are consistent across sub-periods, suggesting genuine predictive content rather than overfitting.
+    12-period windows. The predictive signal is broad rather than concentrated: performance remains
+    strong when expanding the portfolio to the top 100 highest-ranked stocks, and the lowest-ranked
+    decile consistently underperforms the benchmark&mdash;both outcomes suggesting genuine
+    cross-sectional discrimination rather than overfitting to a narrow selection criterion.
   </p>
   <p class="keywords" style="margin-top:9px;"><strong>Keywords:</strong>
     equity return prediction, fundamental analysis, XGBoost, gradient boosting,
@@ -143,14 +146,11 @@ A Quantitative Walk-Forward Framework</h1>
     probability of benchmark outperformance over realistic horizons are rarely reported.</li>
   <li><strong>Survivorship and look-ahead bias.</strong> Studies using non-point-in-time databases
     systematically overstate predictive power, especially in periods covering market dislocations.</li>
-  <li><strong>Time-series evaluation methodology.</strong> Standard cross-validation shuffles observations
-    without regard to time ordering, violating the temporal structure of financial data. The specific
-    implications for model selection in walk-forward frameworks are addressed in Section 4.3.</li>
   <li><strong>Narrow evaluation windows.</strong> Many ML-based studies cover 10&ndash;20 years of data
     and do not span the full range of market regimes, including severe liquidity crises and structural
     shifts in market composition.</li>
 </ol>
-<p>The present framework directly addresses all four limitations.</p>
+<p>The present framework directly addresses all three limitations.</p>
 
 <h2>3. Data</h2>
 <p>
@@ -289,23 +289,28 @@ transaction costs. The benchmark is the equal-weighted mean return of all univer
   and the 2022 rate-driven downturn.
 </p>
 
-<h3>5.2 Return Gradient Across Prediction Deciles</h3>
+<h3>5.2 Signal Breadth and Cross-Sectional Discrimination</h3>
 
 <div class="fig">
   <img src="data:image/png;base64,""" + img2 + """" alt="Figure 2 - Return by Decile"/>
   <p class="fig-caption">
     <strong>Figure 2.</strong> Mean 60-day forward return by prediction rank decile, averaged across
     all 141 test-phase monthly periods. Decile 1 = lowest-ranked stocks; decile 10 = highest-ranked.
-    The near-monotone gradient confirms consistent predictive content across the full distribution.
+    The lowest decile is the worst performer, and the top decile is among the best, while middle deciles
+    cluster around the benchmark mean.
   </p>
 </div>
 
 <p>
-  The return gradient across prediction deciles is near-monotone (Figure 2), ranging from below 1%
-  per period at the bottom decile to approximately 7% at the top. The model also discriminates at
-  the bottom of the distribution: the lowest-ranked decile consistently underperforms the benchmark.
-  This bidirectional discrimination indicates that the learned signal captures genuine cross-sectional
-  differences in near-term prospects rather than merely identifying a small subset of outliers.
+  Two findings from Figure 2 merit particular attention. First, the lowest-ranked decile (D1) averages
+  approximately 1% per period&mdash;consistently below the equal-weighted benchmark of 1.9%&mdash;
+  confirming that the model discriminates meaningfully at the bottom of the distribution, not only at
+  the top. Second, the strategy's edge is not confined to the 30 highest-ranked stocks: expanding the
+  portfolio to the top 100 highest-ranked stocks (roughly the top decile of the approximately 900-stock
+  eligible universe) still yields a mean per-period return of approximately 3.0%&mdash;materially
+  above the 1.9% benchmark mean. Critically, the model was optimized solely on top-30 returns during
+  training; the generalization to a wider selection is out-of-sample evidence of robustness rather
+  than overfitting to a specific portfolio-size parameter.
 </p>
 
 <h3>5.3 Feature Importance and Economic Interpretation</h3>
