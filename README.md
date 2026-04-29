@@ -1,15 +1,15 @@
-# Equity Return Prediction Using Earnings Fundamentals
+# Equity Return Prediction Using Fundamentals Data with XGBoost
 
 **Author:** Raz Kropveld &nbsp;|&nbsp; **Paper:** [equity_return_prediction_paper.html](equity_return_prediction_paper.html)
 
 A systematic, walk-forward framework that predicts 60-trading-day forward equity returns using
-point-in-time accounting fundamentals and XGBoost. The model is trained on 1999–2011 data and
+point-in-time accounting fundamentals and XGBoost. The model is trained on 2000–2011 data and
 evaluated entirely out-of-sample on 2012–2023, spanning multiple market regimes.
 
 **Test-phase results (2012–2023):**
 - Annualised return: **14.2%** (top-30 strategy) vs **6.9%** (equal-weighted universe benchmark)
-- Single-period outperformance probability: **61%**; rolling 2-year: **77.5%**
-- Mean rank IC: **0.024** | Worst single-period return: −26.3%
+- Quarterly standard deviation: **10.2**%; Single-period outperformance probability: **61%**;
+- Rolling 2-year: **77.5%**; - Mean rank IC: **0.024** | Worst single-period return: **−26.3%**
 
 ---
 
