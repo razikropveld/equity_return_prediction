@@ -76,7 +76,8 @@ Applying XGBoost to Changing Market Regimes</h1>
     trained with a custom three-block time-series cross-validation (TSCV) design. To better address the
     well-known challenge of changing market regimes, the validation block is placed <em>prior</em> to
     the training block, hence significantly shortening the gap between the training and test periods.
-    This design innovation resulted in a substantial improvement in out-of-sample IC values.
+    This design allows the model to adapt more fluidly to evolving market regimes by minimizing
+    the temporal gap between the training window and the evaluation period.
     Applied to a long-only top-30 strategy, the framework produces annualized returns of approximately
     14% versus 7% for the equal-weighted universe benchmark over the test period, with the strategy
     outperforming the benchmark in 61% of individual monthly periods and in over 77% of rolling
@@ -231,9 +232,15 @@ Applying XGBoost to Changing Market Regimes</h1>
   the validation set between the training window and the test period. This couples model selection
   to market conditions immediately preceding the test period&mdash;an indirect form of temporal
   leakage where the selected tree count has in effect been tuned to the regime just before evaluation.
-  Moving the validation block to the far side of the training window removes this coupling entirely.
-  Empirically, this design change produced the largest and most consistent performance improvement
-  of any modification to the pipeline.
+  Moving the validation block to the far side of the training window removes this coupling entirely,
+  allowing the model to generalize more fluidly across regime shifts.
+  In practice, <code>num_boost_rounds</code>&mdash;the hyperparameter controlling tree count and
+  therefore model complexity, tuned via early stopping on the validation block&mdash;was found to
+  vary considerably less across test periods than the model parameters learned from the training
+  data. This stability suggests that placing the validation block earlier decouples complexity
+  selection from near-term regime conditions: rather than calibrating the number of trees to the
+  market environment just before the test window, the model selects a more regime-neutral level
+  of complexity, reducing the risk of inadvertent overfitting to a transient market state.
 </p>
 
 <h2>5. Results</h2>
