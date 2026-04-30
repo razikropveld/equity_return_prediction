@@ -50,8 +50,8 @@ html = """<!DOCTYPE html>
 </head>
 <body>
 
-<h1>Predicting Equity Returns from Fundamental Data:<br>
-A Quantitative Walk-Forward Framework</h1>
+<h1>Equity Return Prediction from Fundamentals Data:<br>
+Applying XGBoost to Changing Market Regimes</h1>
 <p class="authors">Raz Kropveld</p>
 <p class="affil">Working Paper &nbsp;&bull;&nbsp; March 2026</p>
 
