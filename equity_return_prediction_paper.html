@@ -66,15 +66,11 @@ Applying XGBoost to Changing Market Regimes</h1>
   </p>
   <p style="margin-top:8px;">
     This paper presents an end-to-end quantitative framework that addresses these limitations directly.
-    Using a point-in-time fundamental database covering over 5,700 U.S. equities, an XGBoost model is
-    evaluated on a strict holdout period from 2012 to 2023&mdash;spanning the post-crisis bull market,
-    the COVID-19 shock, and the 2022 rate cycle. A custom three-block TSCV design places the validation
-    block <em>prior</em> to the training window, allowing the model to adapt more fluidly to changing
-    market regimes. Applied to a long-only top-30 strategy, the framework produces annualized returns of
-    approximately 14% versus 7% for the equal-weighted benchmark, outperforming in 61% of individual
-    periods. The signal is broad rather than concentrated: the lowest-ranked decile consistently
-    underperforms while strong returns extend well beyond the top 30 stocks&mdash;suggesting genuine
-    cross-sectional discrimination rather than overfitting.
+    Using quarterly fundamental reports of thousands of U.S. stocks, an XGBoost model is evaluated on
+    a 12-year holdout period, with a custom TSCV design addressing the changing regimes challenge
+    directly. The strategy achieves approximately twice the universe return with only modestly higher
+    risk, and the predictive signal is broad enough to persist well beyond the top-30 selection&mdash;
+    suggesting genuine cross-sectional discrimination rather than overfitting.
   </p>
   <p class="keywords" style="margin-top:9px;"><strong>Keywords:</strong>
     equity return prediction, fundamental analysis, XGBoost, gradient boosting,
@@ -256,6 +252,7 @@ Applying XGBoost to Changing Market Regimes</h1>
     <tr><td>Annualized return</td><td><strong>14.2%</strong></td><td>6.9%</td></tr>
     <tr><td>Mean 60-day period return</td><td><strong>3.5%</strong></td><td>1.9%</td></tr>
     <tr><td>Std. dev. of period return</td><td>10.1%</td><td>7.8%</td></tr>
+    <tr><td>Annualized Sharpe ratio</td><td><strong>1.27</strong></td><td>0.85</td></tr>
     <tr><td>Prob. outperform benchmark (single period)</td><td><strong>61.0%</strong></td><td>&mdash;</td></tr>
     <tr><td>Prob. outperform benchmark (rolling 12 periods, ~2 yrs)</td><td><strong>77.5%</strong></td><td>&mdash;</td></tr>
     <tr><td>Mean rank information coefficient (IC)</td><td><strong>0.024</strong></td><td>&mdash;</td></tr>
