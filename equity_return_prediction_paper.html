@@ -66,21 +66,15 @@ Applying XGBoost to Changing Market Regimes</h1>
   </p>
   <p style="margin-top:8px;">
     This paper presents an end-to-end quantitative framework that addresses these limitations directly.
-    Using a point-in-time fundamental database covering over 5,700 U.S. equities, we report
-    out-of-sample results on a strict holdout test period from 2012 to 2023&mdash;spanning the post-crisis
-    bull market, the COVID-19 shock, and the 2022 rate cycle. An XGBoost gradient-boosted tree model is
-    trained with a custom three-block time-series cross-validation (TSCV) design. To better address the
-    well-known challenge of changing market regimes, the validation block is placed <em>prior</em> to
-    the training block, hence significantly shortening the gap between the training and test periods.
-    This design allows the model to adapt more fluidly to evolving market regimes by minimizing
-    the temporal gap between the training window and the evaluation period.
-    Applied to a long-only top-30 strategy, the framework produces annualized returns of approximately
-    14% versus 7% for the equal-weighted universe benchmark over the test period, with the strategy
-    outperforming the benchmark in 61% of individual monthly periods and in over 77% of rolling
-    12-period windows. The predictive signal is broad rather than concentrated: performance remains
-    strong when expanding the portfolio to the top 100 highest-ranked stocks, and the lowest-ranked
-    decile consistently underperforms the benchmark&mdash;both outcomes suggesting genuine
-    cross-sectional discrimination rather than overfitting to a narrow selection criterion.
+    Using a point-in-time fundamental database covering over 5,700 U.S. equities, an XGBoost model is
+    evaluated on a strict holdout period from 2012 to 2023&mdash;spanning the post-crisis bull market,
+    the COVID-19 shock, and the 2022 rate cycle. A custom three-block TSCV design places the validation
+    block <em>prior</em> to the training window, allowing the model to adapt more fluidly to changing
+    market regimes. Applied to a long-only top-30 strategy, the framework produces annualized returns of
+    approximately 14% versus 7% for the equal-weighted benchmark, outperforming in 61% of individual
+    periods. The signal is broad rather than concentrated: the lowest-ranked decile consistently
+    underperforms while strong returns extend well beyond the top 30 stocks&mdash;suggesting genuine
+    cross-sectional discrimination rather than overfitting.
   </p>
   <p class="keywords" style="margin-top:9px;"><strong>Keywords:</strong>
     equity return prediction, fundamental analysis, XGBoost, gradient boosting,
