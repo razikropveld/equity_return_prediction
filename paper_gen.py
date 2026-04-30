@@ -96,7 +96,7 @@ Applying XGBoost to Changing Market Regimes</h1>
 </p>
 <p>
   This paper describes a framework built around three design principles. First, the prediction problem
-  is framed temporally: at each decision point, predict 60-trading-day forward returns using only
+  is framed temporally: at each decision point, predict 60-business-day forward returns using only
   information available at that moment. Second, the evaluation methodology replicates sequential
   deployment through a custom three-block walk-forward TSCV loop. Third, the primary performance
   metrics are strategy returns and their statistical robustness&mdash;not RMSE or MAPE
@@ -166,15 +166,18 @@ Applying XGBoost to Changing Market Regimes</h1>
 
 <h3>4.1 Prediction Target and Features</h3>
 <p>
-  The prediction target is the log ratio of the 60-trading-day forward closing price to the current
-  closing price. Features are constructed from the most recent point-in-time fundamental snapshot:
+  The prediction target is the log ratio of the 60-business-day forward closing price to the current
+  closing price. The 60-business-day horizon (approximately one calendar quarter) is a natural choice:
+  it aligns with the typical publication frequency of quarterly earnings reports, making the forward
+  window long enough to capture fundamental repricing while remaining within a single reporting cycle.
+  Features are constructed from the most recent point-in-time fundamental snapshot:
 </p>
 <ul>
   <li><strong>Earnings yield and cash-flow yield</strong> &mdash; net income and free cash flow scaled by market capitalization.</li>
   <li><strong>Relative valuation signals</strong> &mdash; firm-level earnings yield minus the contemporaneous cross-sectional and sector means.</li>
   <li><strong>Revenue efficiency</strong> &mdash; revenue scaled by market capitalization, a proxy for the Novy-Marx (2013) profitability signal.</li>
   <li><strong>Lagged fundamental changes</strong> &mdash; one-period lags of earnings and cash flow, capturing earnings momentum.</li>
-  <li><strong>Price momentum</strong> &mdash; 60-trading-day trailing return as a short-term control.</li>
+  <li><strong>Price momentum</strong> &mdash; 60-business-day trailing return as a short-term control.</li>
   <li><strong>Report timing</strong> &mdash; business days elapsed since the most recent earnings release, capturing post-announcement drift.</li>
 </ul>
 <p>
@@ -234,7 +237,7 @@ Applying XGBoost to Changing Market Regimes</h1>
 <p>
   Table 1 presents the main performance metrics for the top-30 long-only strategy over the test
   period (January 2012 to September 2023, 139 monthly periods). At each decision point, the 30 stocks
-  with the highest predicted 60-day return are selected from the universe of approximately 900 stocks
+  with the highest predicted 60-business-day return are selected from the universe of approximately 900 stocks
   with a recent earnings release. Positions are held for the full 60-business-day horizon before
   rebalancing, so portfolio turnover is modest (roughly 8&ndash;12 rebalances per year across a
   portfolio of a few dozen names); transaction costs are therefore not expected to materially affect
@@ -247,7 +250,7 @@ Applying XGBoost to Changing Market Regimes</h1>
     <tr><td>Evaluation period</td>
         <td colspan="2" style="text-align:center">January 2012 &ndash; September 2023 &nbsp;(139 monthly periods)</td></tr>
     <tr><td>Annualized return</td><td><strong>18.8%</strong></td><td>10.4%</td></tr>
-    <tr><td>Mean 60-day period return</td><td><strong>4.6%</strong></td><td>2.6%</td></tr>
+    <tr><td>Mean 60-business-day period return</td><td><strong>4.6%</strong></td><td>2.6%</td></tr>
     <tr><td>Std. dev. of period return</td><td>9.8%</td><td>6.1%</td></tr>
     <tr><td>Annualized Sharpe ratio</td><td><strong>0.96</strong></td><td>0.86</td></tr>
     <tr><td>Prob. outperform S&amp;P 500 (single period)</td><td><strong>55.4%</strong></td><td>&mdash;</td></tr>
@@ -274,7 +277,7 @@ transaction costs. The benchmark is the S&amp;P 500 total return index (^GSPC, d
 <p>
   The strategy nearly doubles the annualized return of the S&amp;P 500 (18.8% vs. 10.4%, dividend-adjusted)
   over the 12-year test period. Outperformance is broadly distributed: the strategy beats the S&amp;P 500
-  in 55% of individual two-month periods and in 70% of rolling two-year windows. The rolling excess return
+  in 55% of single 60-business-day periods and in 70% of rolling 12-period windows. The rolling excess return
   in the lower panel of Figure 1 shows that the edge is not concentrated in a narrow window&mdash;it
   is present across the 2012&ndash;2015 expansion, the 2018 correction, the COVID-19 shock of 2020,
   and the 2022 rate-driven downturn.
@@ -285,7 +288,7 @@ transaction costs. The benchmark is the S&amp;P 500 total return index (^GSPC, d
 <div class="fig">
   <img src="data:image/png;base64,""" + img2 + """" alt="Figure 2 - Return by Decile"/>
   <p class="fig-caption">
-    <strong>Figure 2.</strong> Mean 60-day forward return (dividend-adjusted) by prediction rank decile, averaged across
+    <strong>Figure 2.</strong> Mean 60-business-day forward return (dividend-adjusted) by prediction rank decile, averaged across
     all 139 test-phase monthly periods. Decile 1 = lowest-ranked stocks; decile 10 = highest-ranked.
     The lowest decile is the worst performer, and the top decile is among the best, while middle deciles
     cluster around the universe mean.
