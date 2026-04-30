@@ -72,7 +72,7 @@ Applying XGBoost to Changing Market Regimes</h1>
     This paper presents an end-to-end quantitative framework that addresses these limitations directly.
     Using quarterly fundamental reports of thousands of U.S. stocks, an XGBoost model is evaluated on
     a 12-year holdout period, with a custom TSCV design addressing the changing regimes challenge
-    directly. The strategy achieves approximately twice the universe return with only modestly higher
+    directly. The strategy achieves nearly twice the return of the S&amp;P 500 with only modestly higher
     risk, and the predictive signal is broad enough to persist well beyond the top-30 selection&mdash;
     suggesting genuine cross-sectional discrimination rather than overfitting.
   </p>
@@ -238,7 +238,7 @@ Applying XGBoost to Changing Market Regimes</h1>
 <h3>5.1 Strategy Performance Summary</h3>
 <p>
   Table 1 presents the main performance metrics for the top-30 long-only strategy over the test
-  period (January 2012 to September 2023, 141 monthly periods). At each decision point, the 30 stocks
+  period (January 2012 to September 2023, 139 monthly periods). At each decision point, the 30 stocks
   with the highest predicted 60-day return are selected from the universe of approximately 900 stocks
   with a recent earnings release. Positions are held for the full 60-business-day horizon before
   rebalancing, so portfolio turnover is modest (roughly 8&ndash;12 rebalances per year across a
@@ -247,41 +247,39 @@ Applying XGBoost to Changing Market Regimes</h1>
 </p>
 
 <table>
-  <thead><tr><th>Metric</th><th>Top-30 Strategy</th><th>Universe Benchmark</th></tr></thead>
+  <thead><tr><th>Metric</th><th>Top-30 Strategy</th><th>S&amp;P 500</th></tr></thead>
   <tbody>
     <tr><td>Evaluation period</td>
-        <td colspan="2" style="text-align:center">January 2012 &ndash; September 2023 &nbsp;(141 monthly periods)</td></tr>
-    <tr><td>Universe (test phase)</td>
-        <td colspan="2" style="text-align:center">5,728 U.S. equities incl. delisted firms</td></tr>
-    <tr><td>Annualized return</td><td><strong>14.2%</strong></td><td>6.9%</td></tr>
-    <tr><td>Mean 60-day period return</td><td><strong>3.5%</strong></td><td>1.9%</td></tr>
-    <tr><td>Std. dev. of period return</td><td>10.1%</td><td>7.8%</td></tr>
-    <tr><td>Annualized Sharpe ratio</td><td><strong>1.27</strong></td><td>0.85</td></tr>
-    <tr><td>Prob. outperform benchmark (single period)</td><td><strong>61.0%</strong></td><td>&mdash;</td></tr>
-    <tr><td>Prob. outperform benchmark (rolling 12 periods, ~2 yrs)</td><td><strong>77.5%</strong></td><td>&mdash;</td></tr>
-    <tr><td>Mean rank information coefficient (IC)</td><td><strong>0.024</strong></td><td>&mdash;</td></tr>
-    <tr><td>Worst single-period return</td><td>&minus;26.3%</td><td>&minus;22.8%</td></tr>
-    <tr><td>Best single-period return</td><td>+50.1%</td><td>+26.2%</td></tr>
+        <td colspan="2" style="text-align:center">January 2012 &ndash; September 2023 &nbsp;(139 monthly periods)</td></tr>
+    <tr><td>Annualized return</td><td><strong>18.8%</strong></td><td>10.4%</td></tr>
+    <tr><td>Mean 60-day period return</td><td><strong>4.6%</strong></td><td>2.6%</td></tr>
+    <tr><td>Std. dev. of period return</td><td>9.8%</td><td>6.1%</td></tr>
+    <tr><td>Annualized Sharpe ratio</td><td><strong>0.96</strong></td><td>0.86</td></tr>
+    <tr><td>Prob. outperform S&amp;P 500 (single period)</td><td><strong>55.4%</strong></td><td>&mdash;</td></tr>
+    <tr><td>Prob. outperform S&amp;P 500 (rolling 12 periods, ~2 yrs)</td><td><strong>69.5%</strong></td><td>&mdash;</td></tr>
+    <tr><td>Mean rank information coefficient (IC)</td><td><strong>0.022</strong></td><td>&mdash;</td></tr>
+    <tr><td>Worst single-period return</td><td>&minus;25.8%</td><td>&minus;19.4%</td></tr>
+    <tr><td>Best single-period return</td><td>+50.6%</td><td>+21.8%</td></tr>
   </tbody>
 </table>
-<p class="note">Table 1. Out-of-sample performance summary (test phase only). Returns are gross of
-transaction costs. The benchmark is the equal-weighted mean return of all universe stocks per period.</p>
+<p class="note">Table 1. Out-of-sample performance summary (test phase only). Returns are dividend-adjusted and gross of
+transaction costs. The benchmark is the S&amp;P 500 total return index (^GSPC, dividends reinvested).</p>
 
 <div class="fig">
   <img src="data:image/png;base64,""" + img1 + """" alt="Figure 1 - Cumulative Wealth"/>
   <p class="fig-caption">
     <strong>Figure 1.</strong> <em>Top panel:</em> cumulative wealth of the top-30 strategy (solid blue)
-    and the equal-weighted universe benchmark (dashed grey) on a logarithmic scale, 2012&ndash;2023
-    (both start at $1). Green/red shading shows periods of strategy outperformance and underperformance.
-    <em>Bottom panel:</em> monthly excess return of the top-30 strategy over the benchmark (bars) and
+    and the S&amp;P 500 total return index (dashed grey) on a logarithmic scale, 2012&ndash;2023
+    (both start at $1). Returns are dividend-adjusted. Green/red shading shows periods of strategy outperformance and underperformance.
+    <em>Bottom panel:</em> monthly excess return of the top-30 strategy over the S&amp;P 500 (bars) and
     its 12-period rolling mean (solid line), illustrating persistence of the edge across sub-periods.
   </p>
 </div>
 
 <p>
-  The strategy more than doubles the annualized return of the benchmark (14.2% vs. 6.9%) over the
-  12-year test period. Outperformance is broadly distributed: the strategy beats the benchmark in 61%
-  of individual two-month periods and in 77% of rolling two-year windows. The rolling excess return
+  The strategy nearly doubles the annualized return of the S&amp;P 500 (18.8% vs. 10.4%, dividend-adjusted)
+  over the 12-year test period. Outperformance is broadly distributed: the strategy beats the S&amp;P 500
+  in 55% of individual two-month periods and in 70% of rolling two-year windows. The rolling excess return
   in the lower panel of Figure 1 shows that the edge is not concentrated in a narrow window&mdash;it
   is present across the 2012&ndash;2015 expansion, the 2018 correction, the COVID-19 shock of 2020,
   and the 2022 rate-driven downturn.
@@ -292,21 +290,21 @@ transaction costs. The benchmark is the equal-weighted mean return of all univer
 <div class="fig">
   <img src="data:image/png;base64,""" + img2 + """" alt="Figure 2 - Return by Decile"/>
   <p class="fig-caption">
-    <strong>Figure 2.</strong> Mean 60-day forward return by prediction rank decile, averaged across
-    all 141 test-phase monthly periods. Decile 1 = lowest-ranked stocks; decile 10 = highest-ranked.
+    <strong>Figure 2.</strong> Mean 60-day forward return (dividend-adjusted) by prediction rank decile, averaged across
+    all 139 test-phase monthly periods. Decile 1 = lowest-ranked stocks; decile 10 = highest-ranked.
     The lowest decile is the worst performer, and the top decile is among the best, while middle deciles
-    cluster around the benchmark mean.
+    cluster around the universe mean.
   </p>
 </div>
 
 <p>
   Two findings from Figure 2 merit particular attention. First, the lowest-ranked decile (D1) averages
-  approximately 1% per period&mdash;consistently below the equal-weighted benchmark of 1.9%&mdash;
+  approximately 1% per period&mdash;consistently below the equal-weighted universe mean&mdash;
   confirming that the model discriminates meaningfully at the bottom of the distribution, not only at
   the top. Second, the strategy's edge is not confined to the 30 highest-ranked stocks: expanding the
   portfolio to the top 100 highest-ranked stocks (roughly the top decile of the approximately 900-stock
   eligible universe) still yields a mean per-period return of approximately 3.0%&mdash;materially
-  above the 1.9% benchmark mean. Critically, the model was optimized solely on top-30 returns during
+  above the universe mean. Critically, the model was optimized solely on top-30 returns during
   training; the generalization to a wider selection is out-of-sample evidence of robustness rather
   than overfitting to a specific portfolio-size parameter.
 </p>
